@@ -14,4 +14,6 @@ def encrypt(pk,m):
     c2 = pk**r*m % p
     return [c1,c2]
 
-
+def decrypt(sk,c):
+    m = 0
+    return m
