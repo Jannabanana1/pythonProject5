@@ -19,12 +19,3 @@ def decrypt(sk,c):
     c1 = c[0]
     m= (c2/(c1**sk)) % sk
     return m
-
-def main():
-    keygen()
-    #decrypt(0,[1,2])
-    #encrypt(0,0)
-    print("hello")
-
-if __name__ == "__main__":
-    main()
