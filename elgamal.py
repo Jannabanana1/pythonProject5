@@ -4,12 +4,13 @@ from params import p
 from params import g
 
 def keygen():
-    sk = random.randint(1, p)
+    sk = random.SystemRandom().randint(1,p)
+    #sk = random.System.randint(1, p)
     pk = pow(g, sk, p) #g^a mod p
     return pk,sk
 
 def encrypt(pk,m):
-    r = random.randint(1,p)
+    r = random.SystemRandom().randint(1,p)
     c1 = pow(g, r, p)
     c2 = pow(pk,r,p)
     c2 = c2* m %p
