@@ -17,10 +17,11 @@ def encrypt(pk,m):
 
 
 def mod_inverse(a, m):
-    return pow(a,-1,m)
+    return pow(a,m-2,m)
 
 
 def decrypt(sk,c):
     m = mod_inverse(pow(c[0],sk,p),p)
     m = m*c[1] %p
     return m
+
