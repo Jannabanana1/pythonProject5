@@ -17,7 +17,7 @@ def encrypt(pk,m):
 
 
 def mod_inverse(a, m):
-    pow(a,-1,m)
+    return pow(a,-1,m)
 
 
 def decrypt(sk,c):
