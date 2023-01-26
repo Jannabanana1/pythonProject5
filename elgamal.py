@@ -20,6 +20,8 @@ def mod_inverse(a, m):
     x = 0
     y = 1
     p = m
+    if m == 1:
+        return 0
     while (a > 1):
         q = a // m
         n = m
