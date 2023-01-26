@@ -27,7 +27,7 @@ def mod_inverse(a, m):
         a = n
         n = x
         x = y-q*x
-        x = n
+        y = n
     if x < 0:
         x += p
     return x
