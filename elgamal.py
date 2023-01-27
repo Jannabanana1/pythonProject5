@@ -40,3 +40,4 @@ def decrypt(sk,c):
     m = mod_inverse(pow(c[0],sk,p),p)
     m = m*c[1] %p
     return m
+
