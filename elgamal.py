@@ -31,9 +31,9 @@ def mod_inverse(a, m):
         n = x
         x = y-q*x
         y = n
-    if x < 0:
-        x += p
-    return x
+    if y < 0:
+        y += p
+    return y
 
 
 def decrypt(sk,c):
