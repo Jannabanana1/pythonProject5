@@ -42,7 +42,7 @@ def app_five(block_list):
     for i in range(5):
         block_list.append(next_block(block_list[-1]))
 
-#just a test
+#just a test aagain
 #In the file linked_list.py, you need to define two functions “next_block” and “app_five.”
 #The “next_block” function takes as input a block (a Python object of class Block) and
 #returns a new block that follows the block provided.
