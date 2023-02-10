@@ -32,4 +32,3 @@ def get_from_ipfs(cid, content_type="json"):
                      auth=("2LVaqfpTeMvb7NuwrPSBBNvSL2u", "17e2b174612e5eea2af96e5b7f55ebbf"))
     print(data)
     return data
-get_from_ipfs(cid, content_type="json")
