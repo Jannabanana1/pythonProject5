@@ -23,7 +23,7 @@ def get_from_ipfs(cid,content_type="json"):
     #print(response)
     #print(response.text)
     #data = eval(response.text)
-    data = json.load(response)
+    data = json.load(response.text)
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
     return data
 
