@@ -9,7 +9,7 @@ def pin_to_ipfs(data):
                              files={'file' : data_str},auth=('2LVaqfpTeMvb7NuwrPSBBNvSL2u','17e2b174612e5eea2af96e5b7f55ebbf'))
     #print(response)
     return_value = response.text
-    cid = json.load(return_value)['Hash']
+    cid = json.loads(return_value)['Hash']
     return cid
 
 def get_from_ipfs(cid,content_type="json"):
@@ -23,7 +23,7 @@ def get_from_ipfs(cid,content_type="json"):
     #print(response)
     #print(response.text)
     #data = eval(response.text)
-    data = json.load(response.text)
+    data = json.loads(response.text)
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
     return data
 
