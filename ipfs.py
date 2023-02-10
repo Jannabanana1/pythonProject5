@@ -8,7 +8,7 @@ def pin_to_ipfs(data):
     response = requests.post('https://ipfs.infura.io:5001/api/v0/add',
                              files={'file' : data_str},auth=('2LVaqfpTeMvb7NuwrPSBBNvSL2u','17e2b174612e5eea2af96e5b7f55ebbf'))
     #print(response)
-    return_value = response.json()
+    return_value = response.text
     cid = json.load(return_value)['Hash']
     return cid
 
