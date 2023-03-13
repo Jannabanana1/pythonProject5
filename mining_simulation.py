@@ -35,7 +35,8 @@ def Simulate(alpha, gamma, N, seed):
             if r <= alpha:
                 state = 2
                 SelfishRevenue += 2
-                ChainLength += 2
+                ChainLength += 1
+
             # The selfish miners found a new block.
             # Write a piece of code to change the required variables.
             # You might need to define new variable to keep track of the number of hidden blocks.
