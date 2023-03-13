@@ -14,7 +14,7 @@ def Simulate(alpha, gamma, N, seed):
     ChainLength = 0
     # the revenue of the selfish mining pool
     SelfishRevenue = 0
-
+    selfMiner = 0
     # A round begin when the state=0
     for i in range(N):
         r = random.random()
@@ -34,11 +34,16 @@ def Simulate(alpha, gamma, N, seed):
         elif state == 1:
             # The selfish pool has 1 hidden block.
             if r <= alpha:
+                state = 2
+                selfMiner = 2
             # The selfish miners found a new block.
             # Write a piece of code to change the required variables.
             # You might need to define new variable to keep track of the number of hidden blocks.
 
             else:
+
+                state -= 1
+
         # Write a piece of code to change the required variables.
 
         elif state == -1:
@@ -46,24 +51,36 @@ def Simulate(alpha, gamma, N, seed):
             # There are three situations!
             # Write a piece of code to change the required variables in each one.
             if r <= alpha:
-
+                SelfishRevenue += 2
+                ChainLength += 2
+                state = 0
             elif r <= alpha + (1 - alpha) * gamma:
-
+                ChainLength += 2
+                SelfishRevenue += 1
+                state = 0
             else:
-
+                state = 0
+                ChainLength += 2
 
         elif state == 2:
             # The selfish pool has 2 hidden block.
             if r <= alpha:
-
+                selfMiner += 1
+                state = 3
             else:
+                ChainLength += selfMiner
+                state = 0
+                SelfishRevenue += selfMiner
         # The honest miners found a block.
 
         elif state > 2:
             if r <= alpha:
             # The selfish miners found a new block
-
+                selfMiner += 1
+                state += 1
             else:
+                state -= 1
+
         # The honest miners found a block
 
     return float(SelfishRevenue) / ChainLength
