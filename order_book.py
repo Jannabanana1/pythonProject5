@@ -4,11 +4,10 @@ from datetime import datetime
 
 from models import Base, Order
 
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
 engine = create_engine('sqlite:///orders.db')
 Base.metadata.bind = engine
-
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 def match(order, existing_order):
     if existing_order.filled==None:
