@@ -60,7 +60,7 @@ contract AMM is AccessControl{
     require(invariant == ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this)), 'wrong invariant');
 
     if(sellToken == tokenA){
-      require( sellAmount > feebps*ERC20(tokenA).balanceOf(address(this))/(1000), ‘sell amount small to cover fees );
+      require( sellAmount > feebps*ERC20(tokenA).balanceOf(address(this))/(1000), ‘sell amount small to cover fees' );
             
       qtyA =  ERC20(tokenA).balanceOf(address(this)) + sellAmount;  
       qtyB = (10000-feebps)/10000 * invariant / qtyA;
@@ -71,7 +71,7 @@ contract AMM is AccessControl{
       ERC20(tokenB).transfer(msg.sender, swapAmt);
     }
     else{
-      require( sellAmount > feebps*ERC20(tokenB).balanceOf(address(this))/(1000), ‘sell amount small to cover fees );
+      require( sellAmount > feebps*ERC20(tokenB).balanceOf(address(this))/(1000), ‘sell amount small to cover fees' );
       //qtyB = (10000-feebps)/10000 * sellAmount;
       //qtyA = ERC20(tokenA).balanceOf(address(this)) - (invariant/(ERC20(tokenB).balanceOf(address(this)) + qtyB));
       //swapAmt = invariant/ (ERC20(tokenB).balanceOf(address(this)) + qtyB);
