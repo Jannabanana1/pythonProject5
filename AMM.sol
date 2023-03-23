@@ -57,7 +57,7 @@ contract AMM is AccessControl{
     uint256 swapAmt; // balance of B minus delta B
 
     //YOUR CODE HERE 
-    require(invariant == ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this)), “wrong invariant”);
+    require(invariant == ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this)), 'wrong invariant');
 
     if(sellToken == tokenA){
       require( sellAmount > feebps*ERC20(tokenA).balanceOf(address(this))/(1000), ‘sell amount small to cover fees );
