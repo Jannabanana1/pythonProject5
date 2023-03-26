@@ -63,6 +63,7 @@ contract AMM is AccessControl{
 
       ERC20(tokenA).transferFrom( msg.sender, address(this), sellAmount);
       ERC20(tokenB).transfer(msg.sender, swapAmt);
+      emit Swap( tokenA, tokenB, sellAmount, swapAmt);
     }
     else{
       qtyB =  ERC20(tokenB).balanceOf(address(this)) + sellAmount; 
@@ -71,6 +72,7 @@ contract AMM is AccessControl{
 
       ERC20(tokenB).transferFrom( msg.sender, address(this), sellAmount);
       ERC20(tokenA).transfer(msg.sender, swapAmt);
+      emit Swap( tokenB, tokenA, sellAmount, swapAmt);
     }
 
     
