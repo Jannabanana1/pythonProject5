@@ -71,7 +71,7 @@ contract AMM is AccessControl{
 
       ERC20(tokenB).transferFrom( msg.sender, address(this), sellAmount);
     invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
-    emit Withdrawal( msg.sender, address(this)), amtA, amtB );
+    emit Withdrawal( msg.sender, address(this)), qtyA, qtyB );
   }
 
 
