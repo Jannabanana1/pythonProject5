@@ -16,6 +16,7 @@ def ZK_equality(G,H):
     stmt = DLRep(C1, r1*G) and DLRep(C2,r1*H+m*G) and DLRep(D1, r2*G) and DLRep(D2, r2*H+m*G)
 
     zk_proof = stmt.prove()
+    verify = stmt.verify(zk_proof)
 
     #Return two ciphertexts and the proof
     return (C1,C2), (D1,D2), zk_proof
