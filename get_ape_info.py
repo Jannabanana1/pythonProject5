@@ -35,24 +35,21 @@ def get_ape_info(apeID):
     endpoint = 'https://gateway.pinata.cloud/ipfs/'
 
     token_url = contract.functions.tokenURI(apeID).call()
-    
-    d = fetch_from_ipfs(token_url); #returns dictionary 
-    image = "";
-eyes = "";
-for item in d:
-    if (item == "image"):
-        image = d[item]
-        print(image)
-    elif (item == "attributes"):
-        for dict in d[item]:
-            #print(dict)
-            if (dict["trait_type"] == "Eyes"):
-                eyes = dict["value"]
-                print(eyes)
-    print(dict)
 
+    d = fetch_from_ipfs(token_url);  # returns dictionary 
+    image = "";
+    eyes = "";
+    for item in d:
+        if (item == "image"):
+            image = d[item]
+        elif (item == "attributes"):
+            for dict in d[item]:
+                if (dict["trait_type"] == "Eyes"):
+                    eyes = dict["value"]
+    data['image'] = image
+    data['eyes'] = eyes
 
     assert isinstance(data, dict), f'get_ape_info{apeID} should return a dict'
     assert all([a in data.keys() for a in
-            ['owner', 'image', 'eyes']]), f"return value should include the keys 'owner','image' and 'eyes'"
+                ['owner', 'image', 'eyes']]), f"return value should include the keys 'owner','image' and 'eyes'"
     return data
