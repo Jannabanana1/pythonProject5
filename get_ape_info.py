@@ -35,13 +35,15 @@ def get_ape_info(apeID):
     endpoint = 'https://gateway.pinata.cloud/ipfs/'
 
     token_url = contract.functions.tokenURI(apeID).call()
-    response = requests.get(endpoint + token_url)
-    response_data = json.loads(response.text)
-    data['image'] = response_data['image']
-    for i in response_data['attributes']:
-        if (i['trait_type'] == 'Eyes'):
-            data['eyes'] = i['value']
-            break
+    #response = requests.get(endpoint + token_url)
+    #response_data = json.loads(response.text)
+    #data['image'] = response_data['image']
+    #for i in response_data['attributes']:
+        #if (i['trait_type'] == 'Eyes'):
+            #data['eyes'] = i['value']
+            #break
+    dict = fetch_from_ipfs(token_url); #returns dictionary 
+    print(dict)
 
 
     assert isinstance(data, dict), f'get_ape_info{apeID} should return a dict'
