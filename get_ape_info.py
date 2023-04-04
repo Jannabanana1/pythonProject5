@@ -36,16 +36,17 @@ def get_ape_info(apeID):
 
     token_url = contract.functions.tokenURI(apeID).call()
 
-    d = fetch_from_ipfs(token_url);  # returns dictionary 
+    d = fetch_from_ipfs(token_url);  # returns dictionary
     image = "";
     eyes = "";
-    for item in d:
-        if (item == "image"):
-            image = d[item]
-        elif (item == "attributes"):
-            for dict in d[item]:
-                if (dict["trait_type"] == "Eyes"):
-                    eyes = dict["value"]
+    for key, value in d.items():
+        if key == 'image':
+            image = value
+            print(image)
+        elif key == 'attributes':
+            for item in d[key]:
+                if (item['trait_type'] == 'Eyes'):
+                    eyes = item['value']
     data['image'] = image
     data['eyes'] = eyes
 
@@ -53,3 +54,4 @@ def get_ape_info(apeID):
     assert all([a in data.keys() for a in
                 ['owner', 'image', 'eyes']]), f"return value should include the keys 'owner','image' and 'eyes'"
     return data
+
