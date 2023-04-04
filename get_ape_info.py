@@ -35,14 +35,20 @@ def get_ape_info(apeID):
     endpoint = 'https://gateway.pinata.cloud/ipfs/'
 
     token_url = contract.functions.tokenURI(apeID).call()
-    #response = requests.get(endpoint + token_url)
-    #response_data = json.loads(response.text)
-    #data['image'] = response_data['image']
-    #for i in response_data['attributes']:
-        #if (i['trait_type'] == 'Eyes'):
-            #data['eyes'] = i['value']
-            #break
-    dict = fetch_from_ipfs(token_url); #returns dictionary 
+    
+    d = fetch_from_ipfs(token_url); #returns dictionary 
+    image = "";
+eyes = "";
+for item in d:
+    if (item == "image"):
+        image = d[item]
+        print(image)
+    elif (item == "attributes"):
+        for dict in d[item]:
+            #print(dict)
+            if (dict["trait_type"] == "Eyes"):
+                eyes = dict["value"]
+                print(eyes)
     print(dict)
 
 
