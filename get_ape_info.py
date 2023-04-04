@@ -28,7 +28,19 @@ def get_ape_info(apeID):
 	data = {'owner': "", 'image': "", 'eyes': "" }
 	
 	#YOUR CODE HERE	
-	
+	contract = web3.eth.contract(address=contract_address,abi=abi)
+    	owner = contract.functions.ownerOf(apeID).call()
+    	data['owner'] = owner
+    	endpoint = 'https://gateway.pinata.cloud/ipfs/'
+    
+    	token_url = contract.functions.tokenURI(apeID).call()
+    	response = requests.get(endpoint + token_url)
+    	response_data = json.loads(response.text)
+    	data['image'] = response_data['image']
+    	for i in response_data['attributes']:
+        	if (i['trait_type'] == 'Eyes'):
+            		data['eyes'] = i['value']
+            			break
 
 	assert isinstance(data,dict), f'get_ape_info{apeID} should return a dict' 
 	assert all( [a in data.keys() for a in ['owner','image','eyes']] ), f"return value should include the keys 'owner','image' and 'eyes'"
