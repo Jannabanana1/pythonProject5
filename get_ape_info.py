@@ -18,7 +18,7 @@ with open('/home/codio/workspace/abi.json', 'r') as f:
 
 ############################
 # Connect to an Ethereum node
-api_url = 'https://mainnet.infura.io/v3/d4e747fdb9574612a0a08497b519e9e8'
+api_url = 'https://celo-mainnet.infura.io/v3/ebcd0dee40f2486396df85334c6879b4'
 provider = HTTPProvider(api_url)
 web3 = Web3(provider)
 
