@@ -1,4 +1,3 @@
-@@ -13,45 +13,47 @@
 # In general, you can get contract ABIs from etherscan
 # https://api.etherscan.io/api?module=contract&action=getabi&address=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D
 with open('/home/codio/workspace/abi.json', 'r') as f:
