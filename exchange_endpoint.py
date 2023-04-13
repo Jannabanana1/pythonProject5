@@ -221,15 +221,15 @@ def order_book():
     All_existingOrder = g.session.query(Order).all()
     instance_list = []
     for i in All_existingOrder:
-        temp_dict = {}
-        temp_dict['sender_pk'] = i.sender_pk
-        temp_dict['receiver_pk'] = i.receiver_pk
-        temp_dict['buy_currency'] = i.buy_currency
-        temp_dict['sell_currency'] = i.sell_currency
-        temp_dict['buy_amount'] = i.buy_amount
-        temp_dict['sell_amount'] = i.sell_amount
-        temp_dict['signature'] = i.signature
-        instance_list.append(temp_dict)
+        dict = {}
+        dict['sender_pk'] = i.sender_pk
+        dict['receiver_pk'] = i.receiver_pk
+        dict['buy_currency'] = i.buy_currency
+        dict['sell_currency'] = i.sell_currency
+        dict['buy_amount'] = i.buy_amount
+        dict['sell_amount'] = i.sell_amount
+        dict['signature'] = i.signature
+        instance_list.append(dict)
 
     result22 = {}
     result22['data'] = instance_list
