@@ -198,26 +198,19 @@ def trade():
         #Your code here
         #Note that you can access the database session using g.session
                 # TODO: Check the signature
-        verify_bool = False
-        verify_bool = check_sig(content['payload'],content['sig'])
+        boolean = False
+        boolean = check_sig(content['payload'],content['sig'])
 
-        # TODO: Add the order to the database
-        if verify_bool == False:
-            #send the message to the Log table
+        if boolean == False:
             log_message(content)
         else:
-            # store the signature, as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’
             fill_order(content)
-        # TODO: Fill the order
        
-        # TODO: Be sure to return jsonify(True) or jsonify(False) depending on if the method was successful
-        return jsonify(verify_bool)
+        return jsonify(boolean)
        
 
 @app.route('/order_book')
 def order_book():
-    #Your code here
-    #Note that you can access the database session using g.session
     All_existingOrder = g.session.query(Order).all()
     instance_list = []
     for i in All_existingOrder:
@@ -234,9 +227,7 @@ def order_book():
     res = {}
     res['data'] = instance_list
     res_json = json.dumps(res)
-    #Note that you can access the database session using g.session
     return jsonify(res)
-    #return jsonify(res_json)
 
 if __name__ == '__main__':
     app.run(port='5002')
