@@ -29,7 +29,6 @@ def shutdown_session(response_or_exc):
     g.session.remove()
 
 
-""" Suggested helper methods """
 def insert_order(order):
 
     order_obj = Order( sender_pk=order['payload']['sender_pk'],receiver_pk=order['payload']['receiver_pk'], buy_currency=order['payload']['buy_currency'],
@@ -73,7 +72,6 @@ def findMatch(orderID):
         existingOrder = g.session.query(Order).filter(Order.filled.is_(None), Order.buy_currency == newOrderSellCurrency, Order.sell_currency == newOrderBuyCurrency,
                                                   ((Order.sell_amount * newOrderSellAmount) >= (Order.buy_amount * newOrderBuyAmount)),
                                                   ((Order.sell_amount/Order.buy_amount) >= newOrderExchangeRate),).first()
-        # this means new order is fulfilled
         if (newOrderBuyAmount <= 0):
             return
        
@@ -162,8 +160,7 @@ def fill_order(order,txes=[]):
     pass
  
 def log_message(d):
-    # Takes input dictionary d and writes it to the Log table
-    # Hint: use json.dumps or str() to get it in a nice string form
+  
     g.session.add(Log(message = json.dumps(d['payload'])))
     g.session.commit()
     pass
@@ -195,9 +192,6 @@ def trade():
                 log_message(content)
                 return jsonify( False )
            
-        #Your code here
-        #Note that you can access the database session using g.session
-                # TODO: Check the signature
         boolean = False
         boolean = check_sig(content['payload'],content['sig'])
 
