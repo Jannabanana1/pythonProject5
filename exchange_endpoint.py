@@ -137,7 +137,7 @@ def findMatch(orderID):
     return
 
 def check_sig(payload,sig):
-    result = False
+    res = False
     #content = request.get_json(silent=True)
     #sig = content['sig']
     message = payload
@@ -145,15 +145,15 @@ def check_sig(payload,sig):
 
     if (payload['platform'] == 'Ethereum'):
         if (eth_account.Account.recover_message(eth_account.messages.encode_defunct(text=json.dumps(message)), signature=sig)) == pk:
-            result = True
+            res = True
         else:
-            result = False
+            res = False
     elif (payload['platform'] == 'Algorand'):
         if algosdk.util.verify_bytes(json.dumps(message).encode('utf-8'),sig,pk):
-            result = True
+            res = True
         else:
-            result = False
-    return result
+            res = False
+    return res
 
 
 def fill_order(order,txes=[]):
@@ -231,12 +231,12 @@ def order_book():
         dict['signature'] = i.signature
         instance_list.append(dict)
 
-    result22 = {}
-    result22['data'] = instance_list
-    result_json = json.dumps(result22)
+    res = {}
+    res['data'] = instance_list
+    res_json = json.dumps(res)
     #Note that you can access the database session using g.session
-    return jsonify(result22)
-    #return jsonify(result_json)
+    return jsonify(res)
+    #return jsonify(res_json)
 
 if __name__ == '__main__':
     app.run(port='5002')
