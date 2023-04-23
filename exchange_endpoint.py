@@ -104,7 +104,7 @@ def get_algo_keys():
     # the algorand public/private keys
 
     account_private_key = 'puO+Km/F3dFxIjpPbgUPhnzYFpWDgIF92ppnyyDrHGYyRUVx+hVfbjuSWrwXzR3w2Pm+JIKrDDwYVSSBx6Rj5Q=='
-    account_public_key = 'GJCUK4P2CVPW4O4SLK6BPTI56DMPTPREQKVQYPAYKUSIDR5EMPSUN3MFLY'
+    account_public_key = '237R6LCZQLZ4OGTFYHHO4V6TDVYKJHB32M4O42JU56ILC2DZR6PQ'
 
     algo_sk = account_private_key
     algo_pk = account_public_key
