@@ -118,7 +118,7 @@ def get_eth_keys(filename="eth_mnemonic.txt"):
 
     # with open(filename, 'r') as file:
     # mnemonic = file.read().strip()
-    mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
+    mnemonic = 'produce body odor strategy govern fatigue clutch relax riot leader flavor holiday'
     acct = w3.eth.account.from_mnemonic(mnemonic)
 
     eth_pk = acct.address
