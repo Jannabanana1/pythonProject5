@@ -25,7 +25,7 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
-    eth_mnemonic = 'gauge inner material time surround scan job security pitch gallery carbon domain'
+    eth_mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
     acct = w3.eth.account.from_mnemonic(eth_mnemonic)
     eth_pk = acct._address
     eth_sk = acct._private_key
