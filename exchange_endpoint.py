@@ -103,7 +103,7 @@ def get_algo_keys():
     # TODO: Generate or read (using the mnemonic secret)
     # the algorand public/private keys
 
-    account_private_key = 'eoBpLdOvJIFzp6zxjZmpVK+Msa8SL3PBbzScYKtneoR9W7vQF3ml6U3W5Md/jmrgqzzt2Zw/p+odoMK1mrOfjA=='
+    account_private_key = 'puO+Km/F3dFxIjpPbgUPhnzYFpWDgIF92ppnyyDrHGYyRUVx+hVfbjuSWrwXzR3w2Pm+JIKrDDwYVSSBx6Rj5Q=='
     account_public_key = 'PVN3XUAXPGS6STOW4TDX7DTK4CVTZ3OZTQ72P2Q5UDBLLGVTT6GE6EAIYM'
 
     algo_sk = account_private_key
