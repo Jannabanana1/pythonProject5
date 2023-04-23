@@ -1,0 +1,38 @@
+ * Serving Flask app "exchange_endpoint" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+Transaction CO6G6SP77EIRQAX4VQLBJZBM64UQK4PAREI63R3ZTOE7RRTS5QFQ confirmed in round 29361244.
+error retrieving algo transaction
+'AlgodClient' object has no attribute 'search_transactions'
+unable to validate transaction
+Ethereum transaction validated
+transaction ready for execution
+Trying to execute 2 transactions
+Transaction QCRWUMDUHTAHVE26RUN4LRCRQLRNPQIKW2YWK6FX5IJTEH5XVJVA confirmed in round 29361244.
+error retrieving algo transaction
+'AlgodClient' object has no attribute 'search_transactions'
+unable to validate transaction
+Ethereum transaction validated
+transaction ready for execution
+Trying to execute 2 transactions
+Transaction FIQ7ETXWLRFR4KNCFFAVNAYPFZVRQCGNCUPOG2BCC5I3YWKM6TBA confirmed in round 29361245.
+error retrieving algo transaction
+'AlgodClient' object has no attribute 'search_transactions'
+unable to validate transaction
+Ethereum transaction validated
+transaction ready for execution
+Trying to execute 2 transactions
+Transaction PN6FEVLUPVPVMP46BY2AVYDSQPVQMF7M3JZ23WRNP3X4VRTTK6FA confirmed in round 29361246.
+error retrieving algo transaction
+'AlgodClient' object has no attribute 'search_transactions'
+unable to validate transaction
+Ethereum transaction validated
+transaction ready for execution
+Trying to execute 2 transactions
+Transaction HY52Y5V7JREOP2HQWPKQJHIQNRWRZUD2SOCLLQXDTZVSLKSDU7GQ confirmed in round 29361246.
+error retrieving algo transaction
+'AlgodClient' object has no attribute 'search_transactions'
+unable to validate transaction
+Ethereum transaction validated
