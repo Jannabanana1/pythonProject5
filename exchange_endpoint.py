@@ -103,7 +103,7 @@ def get_algo_keys():
     # TODO: Generate or read (using the mnemonic secret)
     # the algorand public/private keys
 
-    account_private_key = 'puO+Km/F3dFxIjpPbgUPhnzYFpWDgIF92ppnyyDrHGYyRUVx+hVfbjuSWrwXzR3w2Pm+JIKrDDwYVSSBx6Rj5Q=='
+    account_private_key = 'eoBpLdOvJIFzp6zxjZmpVK+Msa8SL3PBbzScYKtneoR9W7vQF3ml6U3W5Md/jmrgqzzt2Zw/p+odoMK1mrOfjA=='
     account_public_key = 'PVN3XUAXPGS6STOW4TDX7DTK4CVTZ3OZTQ72P2Q5UDBLLGVTT6GE6EAIYM'
 
     algo_sk = account_private_key
@@ -116,9 +116,9 @@ def get_eth_keys(filename="eth_mnemonic.txt"):
     w3 = Web3()
     w3.eth.account.enable_unaudited_hdwallet_features()
 
-    #with open(filename, 'r') as file:
-    #mnemonic = file.read().strip()
-    #mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
+    # with open(filename, 'r') as file:
+    # mnemonic = file.read().strip()
+    mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
     acct = w3.eth.account.from_mnemonic(mnemonic)
 
     eth_pk = acct.address
