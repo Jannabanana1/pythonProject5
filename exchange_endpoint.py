@@ -116,9 +116,9 @@ def get_eth_keys(filename="eth_mnemonic.txt"):
     w3 = Web3()
     w3.eth.account.enable_unaudited_hdwallet_features()
 
-    # with open(filename, 'r') as file:
-    # mnemonic = file.read().strip()
-    mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
+    with open(filename, 'r') as file:
+    mnemonic = file.read().strip()
+    #mnemonic = 'result connect reject welcome climb bonus law pipe rotate estate essay equal gloom monkey dwarf'
     acct = w3.eth.account.from_mnemonic(mnemonic)
 
     eth_pk = acct.address
