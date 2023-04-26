@@ -1,67 +1,56 @@
+#!/usr/bin/python3
+
+from algosdk import account
+from algosdk import mnemonic
+from algosdk.mnemonic import from_private_key
+from algosdk.future import transaction
 from algosdk.v2client import algod
 from algosdk.v2client import indexer
-from algosdk import account
-from algosdk.future import transaction
+
 
 def connect_to_algo(connection_type=''):
-    #Connect to Algorand node maintained by PureStake
+    # Connect to Algorand node maintained by PureStake
     algod_token = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab"
-    headers = {
-        "X-API-Key": algod_token,
-    }
-    
+    headers = {"X-API-Key": algod_token, }
+
     if connection_type == "indexer":
         # TODO: return an instance of the v2client indexer. This is used for checking payments for tx_id's
         algod_address = "https://testnet-algorand.api.purestake.io/idx2"
-        acl = algod.AlgodClient(algod_token, algod_address, headers)
+        client = indexer.IndexerClient(
+            algod_token, algod_address, headers)
     else:
         # TODO: return an instance of the client for sending transactions
-        # Tutorial Link: https://developer.algorand.org/tutorials/creating-python-transaction-purestake-api/
         algod_address = "https://testnet-algorand.api.purestake.io/ps2"
-        acl = algod.AlgodClient(algod_token, algod_address, headers)
+        client = algod.AlgodClient(algod_token, algod_address, headers)
 
-    return acl # should return account
-
-def send_tokens_algo( acl, sender_sk, txes): 
-    # txes is data structure
-    params = acl.suggested_params
-    
-    # TODO: You might want to adjust the first/last valid rounds in the suggested_params
-    #       See guide for details
-    gen_hash = params.gh
-    first_valid_round = params.first
-    tx_fee = params.min_fee
-    last_valid_round = params.last
-    # TODO: For each transaction, do the following:
-    #       - Create the Payment transaction 
-    #       - Sign the transaction
+    return client
 
 
-    
-    # TODO: Return a list of transaction id's
+def send_tokens_algo(acl, sender_sk, txes):
 
+    params = acl.suggested_params()
     sender_pk = account.address_from_private_key(sender_sk)
+    # get first element in input array
+    receiver_pk = txes[0]['receiver_pk']
+    tx_amount = txes[0]['send_amount']
 
-    tx_ids = []
-    for i,tx in enumerate(txes):
-        unsigned_tx = transaction.PaymentTxn(sender_pk,params, tx['receiver_pk'], tx['amount'])
-        #unsigned_tx = transaction.PaymentTxn(pk,tx_fee, first_valid_round, last_valid_round, gen_hash, receiver_pk, tx_amount)
-        # TODO: Sign the transaction
-        signed_tx = unsigned_tx.sign(sender_sk)
-        
-        try:
-            print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
-            
-            # TODO: Send the transaction to the testnet
-            acl.send_transaction(signed_tx)
-            tx_id = unsigned_tx.get_txid()
-            txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-            print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
-            tx_ids.append((tx['order_id'],tx_id))
-        except Exception as e:
-            print(e)
+    unsigned_tx = transaction.PaymentTxn(sender_pk, params, receiver_pk, tx_amount)
+    signed_tx = unsigned_tx.sign(sender_sk)
 
-    return tx_ids
+    try:
+        tx_for_confirmation = acl.send_transaction(signed_tx)
+        print(f"Sending {tx_for_confirmation['amount']} microalgo from {sender_pk} to {tx_for_confirmation['receiver_pk']}")
+        # call wait for confirmation method
+        wait_for_confirmation_algo(acl, tx_for_confirmation)
+        print(f"Sent {wait_for_confirmation_algo['amount']} microalgo in transaction: {wait_for_confirmation_algo}\n")
+    except Exception as e:
+        print(e)
+
+    return tx_for_confirmation
+
+
+# Function from Algorand Inc.
+
 
 # Function from Algorand Inc.
 def wait_for_confirmation_algo(client, txid):
@@ -78,6 +67,7 @@ def wait_for_confirmation_algo(client, txid):
         txinfo = client.pending_transaction_info(txid)
     print("Transaction {} confirmed in round {}.".format(txid, txinfo.get('confirmed-round')))
     return txinfo
+
 
 ##################################
 
@@ -114,43 +104,35 @@ def wait_for_confirmation_eth(w3, tx_hash):
                 receipt = w3.eth.get_transaction_receipt(tx_hash)
             except TransactionNotFound:
                 continue
-            break 
+            break
     return receipt
 
 
 ####################
-def send_tokens_eth(w3,sender_sk,txes):
+def send_tokens_eth(w3, sender_sk, txes):
     sender_account = w3.eth.account.privateKeyToAccount(sender_sk)
     sender_pk = sender_account._address
-
     # TODO: For each of the txes, sign and send them to the testnet
     # Make sure you track the nonce -locally-
-    
-    tx_ids = []
-    for i,tx in enumerate(txes):
-        # Your code here
-        gas_price = w3.eth.gas_price
-        nonce = w3.eth.getTransactionCount(sender_account.address)
+    starting_nonce = w3.eth.get_transaction_count(sender_pk, 'pending')
+    # first tx at zero index
+    receiver_pk = txes[0]['receiver_pk']
+    tx_amount = txes[0]['send_amount']
+    # create dict here
+    tx_dict = {
+        # see guide and methodology to debug this section,
+        # was working unpredictably earlier
+        'nonce': starting_nonce,
+        'gasPrice': w3.eth.gas_price,
+        'gas': w3.eth.estimate_gas({'from': sender_pk, 'to': receiver_pk, 'data': b'', 'amount': tx_amount}),
+        'to': receiver_pk,
+        'value': tx_amount,
+        'data': b''}
 
-        unsigned_tx = {
-            'to': tx['receiver_pk'],
-            'value': tx['amount'],
-            'gas': 21000,
-            'gasPrice': gas_price,
-            'nonce': nonce,
-        }
-
-        #unsigned_tx = transaction.PaymentTxn(pk,tx_fee, first_valid_round, last_valid_round, gen_hash, receiver_pk, tx_amount)
-        # TODO: Sign the transaction
-        signed_tx = sender_account.signTransaction(unsigned_tx, sender_sk)
-        
-        # TODO: Send the transaction to the testnet
-
-        tx_id = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-        
-        txinfo = wait_for_confirmation_eth(w3, tx_id )
-        print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
-        tx_ids.append((tx['order_id'],tx_id))
-        continue
-
-    return tx_ids
+    signed_tx = w3.eth.account.sign_transaction(tx_dict, sender_sk)
+    # Returns the transaction hash as a HexBytes object.
+    tx_id = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    wait_for_confirmation_eth(w3, tx_id)
+    # returning a list within this method
+    # seems to produce issues in the matching algorithm?
+    return tx_id
